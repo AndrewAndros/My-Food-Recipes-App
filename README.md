@@ -1,5 +1,5 @@
 # My-Food-Recipes-App
- Данный проект создан  на базе пройденного мной курса от Митча https://codingwithmitch.com/courses/android-local-database-cache-rest-api/  
+RU: Данный проект создан  на базе пройденного мной курса от Митча https://codingwithmitch.com/courses/android-local-database-cache-rest-api/  
   
 Основные отличия от оригинала: 
 * Я писал проект на Kotlin вместо Java 
@@ -7,8 +7,9 @@
 * Создал возможность добавлять понравившиеся пользователю рецепты в закладки 
 * Появилась опция открытия первоисточника рецепта через браузер, где помимо ингредиентов можно прочитать подробно способ приготовления (API от Food2Fork не дает такой информации, только ссылку на первоисточник) 
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
-The project is based on Mitch's course  https://codingwithmitch.com/courses/android-local-database-cache-rest-api/    
+ENG: The project is based on Mitch's course  https://codingwithmitch.com/courses/android-local-database-cache-rest-api/    
 Major differences compare to original code: 
 * I wrote the code in Kotlin instead of Java
 * For some functions I used RxJava2
