@@ -10,6 +10,7 @@
 -------------------------------------------------------------------------------------------------------------------------------------
 
 **ENG:** The project is based on Mitch's course  https://codingwithmitch.com/courses/android-local-database-cache-rest-api/    
+  
 **Major differences compare to original code:**
 * I wrote the code in Kotlin instead of Java
 * For some functions I used RxJava2
