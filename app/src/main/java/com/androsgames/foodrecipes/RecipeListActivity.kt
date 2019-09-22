@@ -51,6 +51,8 @@ class RecipeListActivity : BaseActivity(), OnRecipeListener {
 
         val mToolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(mToolbar)
+
+        // THIS IS A TEST COMMENT
     }
 
     private fun displaySearchCategories() {
