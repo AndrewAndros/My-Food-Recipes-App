@@ -1,7 +1,7 @@
 # My-Food-Recipes-App
-RU: Данный проект создан  на базе пройденного мной курса от Митча https://codingwithmitch.com/courses/android-local-database-cache-rest-api/  
+**RU:** Данный проект создан  на базе пройденного мной курса от Митча https://codingwithmitch.com/courses/android-local-database-cache-rest-api/  
   
-Основные отличия от оригинала: 
+**Основные отличия от оригинала:** 
 * Я писал проект на Kotlin вместо Java 
 * Использование библиотеки RxJava 2 в некоторых функциях Recipe Activity
 * Создал возможность добавлять понравившиеся пользователю рецепты в закладки 
@@ -9,8 +9,8 @@ RU: Данный проект создан  на базе пройденного
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
-ENG: The project is based on Mitch's course  https://codingwithmitch.com/courses/android-local-database-cache-rest-api/    
-Major differences compare to original code: 
+**ENG:** The project is based on Mitch's course  https://codingwithmitch.com/courses/android-local-database-cache-rest-api/    
+**Major differences compare to original code:**
 * I wrote the code in Kotlin instead of Java
 * For some functions I used RxJava2
 * There is an opportunity of adding recipes to bookmarks
