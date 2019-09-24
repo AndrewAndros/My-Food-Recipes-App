@@ -8,35 +8,34 @@ import java.util.concurrent.Executors
 class AppExecutors {
 
     companion object {
-        private var instance : AppExecutors? = null
-        fun get() : AppExecutors {
+        private var instance: AppExecutors? = null
+        fun get(): AppExecutors {
             if (instance == null) {
                 instance = AppExecutors()
             }
-            return instance as AppExecutors
+            return instance!!
         }
 
         class MainThreadExecutor : Executor {
             override fun execute(command: Runnable) {
                 mainThreadHandler.post(command)
             }
+
             private var mainThreadHandler: Handler = Handler(Looper.getMainLooper())
         }
     }
 
-            private val mDiskIO : Executor = Executors.newSingleThreadExecutor()
-            private val mMainThreadExecutor : MainThreadExecutor = MainThreadExecutor()
+    private val mDiskIO: Executor = Executors.newSingleThreadExecutor()
+    private val mMainThreadExecutor: MainThreadExecutor = MainThreadExecutor()
 
 
-    fun diskIO() : Executor {
+    fun diskIO(): Executor {
         return mDiskIO
     }
 
-    fun mainThread() : MainThreadExecutor {
+    fun mainThread(): MainThreadExecutor {
         return mMainThreadExecutor
     }
-
-
 
 
 }
