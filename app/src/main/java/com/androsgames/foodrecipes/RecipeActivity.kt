@@ -150,6 +150,7 @@ class RecipeActivity : BaseActivity() {
                             Log.d(TAG, "OnChanged: ERROR MESSAGE: ${recipeResource.message}")
                             showParent()
                             showProgressBar(false)
+                            setRecipeProperties(recipeResource.data)
                         }
                         Resource.Status.SUCCESS -> {
                             Log.d(TAG, "OnChanged: cache has been refreshed ")
@@ -169,7 +170,6 @@ class RecipeActivity : BaseActivity() {
     }
 
     private fun setRecipeProperties(recipe: Recipe?) {
-        mRecipeIngredientsContainer.removeAllViews()
         if (recipe != null) {
 
             val requestOptions = RequestOptions()
@@ -187,42 +187,19 @@ class RecipeActivity : BaseActivity() {
             if (recipe.bookmark == 1) {
                 bookmarkBn.setImageResource(R.drawable.ic_filledstar)
             }
-            setIngredientsWithRx(recipe.ingredients)
-        }
-
-
-    }
-
-
-    // Initial way to do it (changed with Rx to practice)
-    private fun setIngredients(recipe: Recipe) {
-        mRecipeIngredientsContainer.removeAllViews()
-        if (recipe.ingredients != null) {
-            for (ingredient in recipe.ingredients!!) {
-                val textView = TextView(this)
-                textView.text = ingredient
-                textView.textSize = 15F
-                textView.layoutParams = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                mRecipeIngredientsContainer.addView(textView)
+            if (recipe.ingredients != null) {
+                setIngredientsWithRx(recipe.ingredients)
+            } else {
+                setIngredient(null, true)
             }
-        } else {
-            val textView = TextView(this)
-            textView.text = "Error retrieving ingredients.\n Check network connection"
-            textView.textSize = 15F
-            textView.layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            mRecipeIngredientsContainer.addView(textView)
         }
+
+
     }
 
 
     private fun setIngredientsWithRx(ingredients: Array<String?>?) {
-
+        mRecipeIngredientsContainer.removeAllViews()
         Observable.fromArray(*ingredients as Array<out String>)
             .filter {
                 it.isNotBlank()
