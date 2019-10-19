@@ -16,3 +16,14 @@
 * For some functions I used RxJava2
 * There is an opportunity of adding recipes to bookmarks
 * I created an option to open recipe source via a browser, where in addition to ingredients you can see full instruction to cook a dish (Food2Fork's API doesn't give such information)
+ 
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+**PT-BR:** O projeto é baseado no curso do Mitch https://codingwithmitch.com/courses/android-local-database-cache-rest-api/    
+  
+**Principais diferenças com o código original:**
+* O código foi escrito em Kotlin ao invés de Java
+* Para algumas funções eu usei RxJava2
+* Existe uma oportunidade de adicionar receitas para os favoritos
+* Eu criei uma opção de abrir uma receita através do navegador, onde além de visualizar os ingredientes você pode ver a instrução completa de como preparar o prato (a API Food2Fork não apresenta essas informações)
