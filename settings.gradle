@@ -1,1 +1,3 @@
+rootProject.name= 'My-Food-Recipes-App'
 include ':app'
+
