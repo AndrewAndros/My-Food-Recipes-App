@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="#FFFFFF"
+        tools:context="com.SplashActivity">
+
+
+    <TextView
+            android:id="@+id/txtwelocome"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_marginTop="80dp"
+
+            android:fontFamily="@font/bangers"
+            android:text="Welcome To"
+            android:textAlignment="center"
+            android:textColor="#585C55"
+            android:textSize="70sp" />
+
+    <ImageView
+            android:id="@+id/imglogo"
+            android:layout_width="367dp"
+            android:layout_height="225dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false"
+            android:src="@drawable/grablogo" />
+
+</RelativeLayout>
