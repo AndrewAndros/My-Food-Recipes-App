@@ -12,6 +12,7 @@ import android.util.Log
 import android.widget.Toast
 import com.androsgames.foodrecipes.adapters.OnRecipeListener
 import com.androsgames.foodrecipes.adapters.RecipeRecyclerAdapter
+import com.androsgames.foodrecipes.databinding.ActivityRecipeListBinding
 import com.androsgames.foodrecipes.models.Recipe
 import com.androsgames.foodrecipes.util.Resource
 import com.androsgames.foodrecipes.util.VerticalSpacingItemDecorator
@@ -28,16 +29,16 @@ class RecipeListActivity : BaseActivity(), OnRecipeListener {
 
     val TAG : String = "RecipeListActivity"
 
+    lateinit var bindin: ActivityRecipeListBinding
     private lateinit var mRecipeListViewModel : RecipeListViewModel
-    private lateinit var mRecyclerView : RecyclerView
+
     private lateinit var mRecyclerAdapter : RecipeRecyclerAdapter
-    private lateinit var searchView: SearchView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_list)
-        mRecyclerView = findViewById(R.id.recipe_list)
-        searchView = findViewById(R.id.search_view)
+        bindin=ActivityRecipeListBinding.inflate(layoutInflater)
 
         mRecipeListViewModel = ViewModelProviders.of(this).get(RecipeListViewModel::class.java)
         initRecyclerView()
@@ -60,7 +61,7 @@ class RecipeListActivity : BaseActivity(), OnRecipeListener {
 
     private fun initSearchView() {
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        bindin.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(s: String): Boolean {
 
@@ -80,25 +81,26 @@ class RecipeListActivity : BaseActivity(), OnRecipeListener {
         val viewPreloader : ViewPreloadSizeProvider<String> = ViewPreloadSizeProvider()
         mRecyclerAdapter = RecipeRecyclerAdapter(this,  initGlide(), viewPreloader)
         val itemDecorator = VerticalSpacingItemDecorator(30)
-        mRecyclerView.addItemDecoration(itemDecorator)
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
+        bindin.recipeList.addItemDecoration(itemDecorator)
+        bindin.recipeList.layoutManager = LinearLayoutManager(this)
 
         val preloader : RecyclerViewPreloader<String> = RecyclerViewPreloader<String>(Glide.with(this), mRecyclerAdapter, viewPreloader, 30 )
 
-        mRecyclerView.addOnScrollListener(preloader)
 
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            bindin.recipeList.addOnScrollListener(preloader)
+
+        bindin.recipeList.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                if(!mRecyclerView.canScrollVertically(1) && mRecipeListViewModel.getViewState().value == RecipeListViewModel.ViewState.RECIPES) {
+                if(!bindin.recipeList.canScrollVertically(1) && mRecipeListViewModel.getViewState().value == RecipeListViewModel.ViewState.RECIPES) {
                     mRecipeListViewModel.searchNextPage()
                 }
             }
         })
 
 
-        mRecyclerView.adapter = mRecyclerAdapter
+        bindin.recipeList.adapter = mRecyclerAdapter
 
 
     }
@@ -158,9 +160,9 @@ class RecipeListActivity : BaseActivity(), OnRecipeListener {
     }
 
     fun searchRecipesApi (query : String) {
-        mRecyclerView.smoothScrollToPosition(0)
+        bindin.recipeList.smoothScrollToPosition(0)
         mRecipeListViewModel.searchRecipesApi(query, 1)
-        searchView.clearFocus()
+       bindin.searchView.clearFocus()
     }
 
 
