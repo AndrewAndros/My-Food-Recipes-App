@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.androsgames.foodrecipes.databinding.ActivityRecipeBinding
 import com.androsgames.foodrecipes.models.Recipe
 import com.androsgames.foodrecipes.persistence.RecipeDao
 import com.androsgames.foodrecipes.persistence.RecipeDatabase
@@ -30,40 +31,25 @@ import kotlin.math.roundToInt
 class RecipeActivity : BaseActivity() {
 
     private val TAG = "RecipeActivity"
-    private lateinit var mRecipeViewModel: RecipeViewModel
-    private lateinit var mRecipeImage: AppCompatImageView
-    private lateinit var mRecipeTitle: TextView
-    private lateinit var mRecipeRank: TextView
-    private lateinit var mRecipeViewSourceBn: TextView
-    private lateinit var mRecipePublisher: TextView
-    private lateinit var mRecipeIngredientsContainer: LinearLayout
-    private lateinit var mScrollView: ScrollView
-    private lateinit var bookmarkBn: ImageView
-
+    lateinit var  mRecipeViewModel: RecipeViewModel
     private lateinit var recipe: Recipe
     private var recipeDao: RecipeDao = RecipeDatabase.getInstance(this)!!.recipeDAO()
 
     private var disposables: CompositeDisposable = CompositeDisposable()
     private val appExecuters: AppExecutors = AppExecutors.get()
 
+    lateinit var bind: ActivityRecipeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
-        mRecipeImage = findViewById(R.id.recipe_image)
-        mRecipeTitle = findViewById(R.id.recipe_title)
-        mRecipeRank = findViewById(R.id.recipe_social_score)
-        mRecipePublisher = findViewById(R.id.recipe_publisher)
-        mRecipeViewSourceBn = findViewById(R.id.recipe_source_intent_bn)
-        mRecipeIngredientsContainer = findViewById(R.id.ingredients_container)
-        mScrollView = findViewById(R.id.parent)
-        bookmarkBn = findViewById(R.id.bookmark_btn)
+        bind=ActivityRecipeBinding.inflate(layoutInflater)
         mRecipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java)
         showProgressBar(true)
         // subscribeObservers()
         getIncomingIntent()
 
-        mRecipeViewSourceBn.setOnClickListener {
+       bind.recipeSourceIntentBn.setOnClickListener {
             openSource()
         }
 
@@ -73,7 +59,7 @@ class RecipeActivity : BaseActivity() {
 
 
         // Getting rid of excessive clicks
-        bookmarkBn.clicks()
+        bind.bookmarkBtn.clicks()
             .throttleFirst(1800, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<Unit> {
@@ -103,11 +89,11 @@ class RecipeActivity : BaseActivity() {
     private fun addOrRemoveFromBookmarks() {
         if (recipe.bookmark == 1) {
             recipe.bookmark = 0
-            bookmarkBn.setImageResource(R.drawable.ic_emptystar)
+            bind.bookmarkBtn.setImageResource(R.drawable.ic_emptystar)
             Toast.makeText(this, "recipe removed from bookmarks", Toast.LENGTH_SHORT).show()
         } else {
             recipe.bookmark = 1
-            bookmarkBn.setImageResource(R.drawable.ic_filledstar)
+           bind.bookmarkBtn.setImageResource(R.drawable.ic_filledstar)
             Toast.makeText(this, "recipe added to bookmarks", Toast.LENGTH_SHORT).show()
         }
         appExecuters.diskIO().execute {
@@ -179,13 +165,13 @@ class RecipeActivity : BaseActivity() {
             Glide.with(this)
                 .setDefaultRequestOptions(requestOptions)
                 .load(recipe.image_url)
-                .into(mRecipeImage)
+                .into(bind.recipeImage)
 
-            mRecipeTitle.text = recipe.title
-            mRecipePublisher.text = "Publisher: ${recipe.publisher}"
-            mRecipeRank.text = recipe.social_rank.roundToInt().toString()
+            bind.recipeTitle.text = recipe.title
+            bind.recipePublisher.text = "Publisher: ${recipe.publisher}"
+            bind.recipeSocialScore.text = recipe.social_rank.roundToInt().toString()
             if (recipe.bookmark == 1) {
-                bookmarkBn.setImageResource(R.drawable.ic_filledstar)
+                bind.bookmarkBtn.setImageResource(R.drawable.ic_filledstar)
             }
             if (recipe.ingredients != null) {
                 setIngredientsWithRx(recipe.ingredients)
@@ -199,7 +185,7 @@ class RecipeActivity : BaseActivity() {
 
 
     private fun setIngredientsWithRx(ingredients: Array<String?>?) {
-        mRecipeIngredientsContainer.removeAllViews()
+        bind.ingredientsContainer.removeAllViews()
         Observable.fromArray(*ingredients as Array<out String>)
             .filter {
                 it.isNotBlank()
@@ -243,19 +229,19 @@ class RecipeActivity : BaseActivity() {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        mRecipeIngredientsContainer.addView(textView)
+        bind.ingredientsContainer.addView(textView)
 
     }
 
 
     private fun showParent() {
-        mScrollView.visibility = View.VISIBLE
+        bind.parent.visibility = View.VISIBLE
     }
 
 
     private fun displayErrorScreen(errorMessage: String) {
-        mRecipeTitle.text = "error retrieving recipe"
-        mRecipeRank.text = ""
+      bind.recipeTitle.text = "error retrieving recipe"
+       bind.recipeSocialScore.text = ""
         val textView = TextView(this)
         if (!errorMessage.equals("")) {
             textView.text = errorMessage
@@ -267,7 +253,7 @@ class RecipeActivity : BaseActivity() {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        mRecipeIngredientsContainer.addView(textView)
+       bind.ingredientsContainer.addView(textView)
 
         val requestOptions = RequestOptions()
             .placeholder(R.drawable.ic_launcher_background)
@@ -275,7 +261,7 @@ class RecipeActivity : BaseActivity() {
         Glide.with(this)
             .setDefaultRequestOptions(requestOptions)
             .load(R.drawable.ic_launcher_background)
-            .into(mRecipeImage)
+            .into(bind.recipeImage)
 
         showParent()
         showProgressBar(false)

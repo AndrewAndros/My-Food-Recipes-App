@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<layout
         xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <variable
+                name="temp"
+                type="com.androsgames.foodrecipes.RecipeActivity" />
+    </data>
+
+<ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/parent"
@@ -86,30 +95,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ingredients_container"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="vertical">
 
             <TextView
                     android:id="@+id/recipe_publisher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
                     android:layout_marginTop="4dp"
-                    android:textSize="@dimen/recipe_publisher_text_size"
                     android:gravity="center"
+                    android:padding="4dp"
+                    android:text="publisher"
                     android:textColor="#000"
-                    android:text="publisher"/>
+                    android:textSize="@dimen/recipe_publisher_text_size" />
 
             <TextView
                     android:id="@+id/recipe_source_intent_bn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
                     android:layout_marginTop="2dp"
-                    android:textSize="@dimen/recipe_publisher_text_size"
                     android:gravity="center"
+                    android:padding="4dp"
+                    android:text="@string/read_full_recipe_from_source"
                     android:textColor="@color/red"
-                    android:text= "@string/read_full_recipe_from_source"/>
+                    android:textSize="@dimen/recipe_publisher_text_size" />
         </LinearLayout>
 
 
@@ -117,3 +129,5 @@
     </RelativeLayout>
 
 </ScrollView>
+
+</layout>

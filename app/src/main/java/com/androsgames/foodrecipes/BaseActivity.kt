@@ -5,21 +5,22 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import com.androsgames.foodrecipes.databinding.ActivityBaseBinding
 
 abstract class  BaseActivity : AppCompatActivity() {
 
-    lateinit var mProgressBar : ProgressBar
 
+lateinit var binding: ActivityBaseBinding
     override fun setContentView(layoutResID: Int) {
-        val constraintLayout : ConstraintLayout = layoutInflater.inflate(R.layout.activity_base, null) as ConstraintLayout
-        val frameLayout : FrameLayout = constraintLayout.findViewById(R.id.activity_content)
-        mProgressBar = constraintLayout.findViewById(R.id.progress_bar)
-        layoutInflater.inflate(layoutResID, frameLayout, true)
-        super.setContentView(constraintLayout)
+
+
+        binding=ActivityBaseBinding.inflate(layoutInflater)
+
+        layoutInflater.inflate(layoutResID, binding.activityContent, true)
     }
 
     fun showProgressBar (visibility : Boolean) {
-        mProgressBar.visibility = if(visibility) View.VISIBLE else View.GONE
+        binding.progressBar.visibility = if(visibility) View.VISIBLE else View.GONE
     }
 
 
