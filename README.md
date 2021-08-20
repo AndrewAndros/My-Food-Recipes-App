@@ -17,3 +17,4 @@
 * There is an opportunity of adding recipes to bookmarks
 * I created an option to open recipe source via a browser, where in addition to ingredients you can see full instruction to cook a dish (Food2Fork's API doesn't give such information)
 this is a test comment
+* this is another comment
