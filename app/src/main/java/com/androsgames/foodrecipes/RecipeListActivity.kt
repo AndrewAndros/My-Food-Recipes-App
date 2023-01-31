@@ -33,6 +33,7 @@ class RecipeListActivity : BaseActivity(), OnRecipeListener {
     private lateinit var mRecyclerAdapter : RecipeRecyclerAdapter
     private lateinit var searchView: SearchView
 
+    //this is a test comment by kshitiz agarwal
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_list)
