@@ -19,7 +19,7 @@ class RecipeViewHolder(itemView: View, private val onRecipeListener: OnRecipeLis
     val image : AppCompatImageView = itemView.findViewById(R.id.recipe_image)
 
 
-
+    // This is a test comment
 
     fun onBind(recipe : Recipe) {
 
