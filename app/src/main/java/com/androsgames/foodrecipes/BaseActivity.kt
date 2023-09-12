@@ -17,7 +17,7 @@ abstract class  BaseActivity : AppCompatActivity() {
         layoutInflater.inflate(layoutResID, frameLayout, true)
         super.setContentView(constraintLayout)
     }
-
+//Learning to make pull request
     fun showProgressBar (visibility : Boolean) {
         mProgressBar.visibility = if(visibility) View.VISIBLE else View.GONE
     }
